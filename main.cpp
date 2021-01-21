@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <sstream>
+#include <iomanip>
 #include <ctime>
 using namespace std;
 
@@ -82,7 +83,8 @@ void vertexCover(vector<vector<int>> graph) {
     //print count
     cout << ct << " permutations." << endl;
 
-    int duration = 100*(( clock() - start ) / (double) CLOCKS_PER_SEC);
+    double duration = 100*(( clock() - start ) / (double) CLOCKS_PER_SEC);
+    cout << fixed << setprecision(2);
     cout << "duration: " << duration << "ms" << endl << endl;
 }
 
@@ -92,7 +94,7 @@ int main() {
     //Establish an adjacency list to represent an undirected graph
     vector<vector<int>> graph1(3);
 
-    //Add vertices (visual will be shown in post)
+    //Add vertices
     addEdge(graph1, 0, 1);
     addEdge(graph1, 1, 2);
 
@@ -108,7 +110,7 @@ int main() {
     //Establish an adjacency list to represent an undirected graph
     vector<vector<int>> graph2(5);
 
-    //Add vertices (visual will be shown in post)
+    //Add vertices
     addEdge(graph2, 0, 1);
     addEdge(graph2, 0, 2);
     addEdge(graph2, 1, 2);
@@ -127,7 +129,7 @@ int main() {
     //Establish an adjacency list to represent an undirected graph
     vector<vector<int>> graph3(5);
 
-    //Add vertices (visual will be shown in post)
+    //Add vertices
     addEdge(graph3, 2, 0);
     addEdge(graph3, 2, 1);
     addEdge(graph3, 2, 3);
@@ -147,7 +149,7 @@ int main() {
     //Establish an adjacency list to represent an undirected graph
     vector<vector<int>> graph4(9);
 
-    //Add vertices (visual will be shown in post)
+    //Add vertices
     addEdge(graph4, 1, 2);
     addEdge(graph4, 0, 2);
     addEdge(graph4, 3, 5);
