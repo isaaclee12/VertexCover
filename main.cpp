@@ -31,26 +31,17 @@ void vertexCover(vector<vector<int>> graph, int edges) {
     vector<vector<int>> edgesMarked;
     int edgesCovered = 0;
 
+    //For the n vertices
     for (int i = 0; i < vertices; i++) {
+
         for (int j = 0; j < graph[i].size(); j++) {
             //Add each edge unless they are already in there
             for (int i = 0; i < edgesMarked.size(); i++) {
-
+                //Yeah I give up.
             }
             edgesMarked.push_back({i, graph[i][j]});
         }
     }
-
-    for (int i = 0; i < edgesMarked.size(); i++) {
-        for (int j = 0; j < edgesMarked[i].size(); j++) {
-            if (j == 0)
-                cout << edgesMarked[i][j] << "-->";
-            else
-                cout << edgesMarked[i][j];
-        }
-        cout << endl;
-    }
-
 }
 
 int main() {
@@ -100,7 +91,7 @@ int main() {
     printAdjList(graph3);
 
     //Vertex Cover
-    vertexCover(graph2, 5);
+    vertexCover(graph3, 5);
 
     return 0;
 }
