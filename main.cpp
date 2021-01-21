@@ -5,16 +5,7 @@ using namespace std;
 void addEdge(vector<vector<int>> &graph, int vertex1, int vertex2) {
     //Add vertices to the adjacency list for each vertex
     graph[vertex1].push_back(vertex2);
-    //Debug: cout << vertex1 << "---" << vertex2 << endl;
     graph[vertex2].push_back(vertex1);
-
-    /*for (int i = 0; i < graph[vertex1].size(); i++) {
-        cout << vertex1 << "-->" << graph[vertex1][i] << endl;
-    }
-    for (int i = 0; i < graph[vertex2].size(); i++) {
-        cout << vertex2 << "-->" << graph[vertex2][i] << endl;
-    }
-    cout << endl;*/
 }
 
 void printAdjList(vector<vector<int>> graph) {
@@ -28,6 +19,36 @@ void printAdjList(vector<vector<int>> graph) {
         cout << endl;
     }
     cout << endl;
+}
+
+void vertexCover(vector<vector<int>> graph, int edges) {
+    //Get the number of vertices from the graph
+    int vertices = graph.size();
+
+    //vars
+    vector<vector<int>> edgesMarked;
+    int edgesCovered = 0;
+
+    for (int i = 0; i < vertices; i++) {
+        for (int j = 0; j < graph[i].size(); j++) {
+            //Add each edge unless they are already in there
+            for (int i = 0; i < edgesMarked.size(); i++) {
+
+            }
+            edgesMarked.push_back({i, graph[i][j]});
+        }
+    }
+
+    for (int i = 0; i < edgesMarked.size(); i++) {
+        for (int j = 0; j < edgesMarked[i].size(); j++) {
+            if (j == 0)
+                cout << edgesMarked[i][j] << "-->";
+            else
+                cout << edgesMarked[i][j];
+        }
+        cout << endl;
+    }
+
 }
 
 int main() {
@@ -76,6 +97,8 @@ int main() {
     cout << "Graph 3:" << endl;
     printAdjList(graph3);
 
+    //Vertex Cover
+    vertexCover(graph2, 5);
 
     return 0;
 }
