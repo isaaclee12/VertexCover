@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <sstream>
+#include <ctime>
 using namespace std;
 
 //Turns out I did not need to make all this
@@ -23,56 +25,72 @@ void printAdjList(vector<vector<int>> graph) {
     cout << endl;
 }
 
-void getSubsets(vector<vector<int>> graph, int s, int currentLength, int subsetSize, vector<bool> check, int n) {
-    //Solution taken from: https://stackoverflow.com/questions/61094030/error-c2131-expression-did-not-evaluate-to-a-constant-while-creating-array-of-s
-
-    if (currentLength > subsetSize) {
+void PossibleSubSet(vector<int> a, int reqLen, int s, int currLen, vector<bool> check, int l, int &ct)
+//Code taken from: https://www.tutorialspoint.com/cplusplus-program-to-generate-all-possible-subsets-with-exactly-k-elements-in-each-subset
+//print the all possible combination of given array set
+{
+    if(currLen > reqLen)
         return;
-    }
-    else if (currentLength == subsetSize) {
-        for (int i = 0; i < n; i++) {
-            if (check[i]) {
-                cout << i <<" ";
+    else if (currLen == reqLen) {
+        //cout<<"\t";
+        for (int i = 0; i < l; i++) {
+            if (check[i] == true) {
+                //cout<<a[i]<<" ";
+                //iterate count
+                ct++;
             }
         }
-        cout << endl;
+        //cout<<"\n";
         return;
     }
-
-    if (s == 1) {
+    if (s == l) {
         return;
     }
-
     check[s] = true;
-    getSubsets(graph, s + 1, currentLength + 1, subsetSize, check, n);
-
+    PossibleSubSet(a, reqLen, s + 1, currLen + 1, check, l, ct);
+    //recursively call PossibleSubSet() with incremented value of ‘currLen’ and ‘s’.
     check[s] = false;
-    getSubsets(graph, s + 1, currentLength + 1, subsetSize, check, n);
+    PossibleSubSet(a, reqLen, s + 1, currLen, check, l, ct);
+    //recursively call PossibleSubSet() with only incremented value of ‘s’.
 }
 
-void vertexCover(vector<vector<int>> graph, int edges) {
+void vertexCover(vector<vector<int>> graph) {
     //Get the number of vertices from the graph
     int n = graph.size();
+
+    //combo count
+    int ct = 0;
+
     vector<bool> check(n);
+    vector<int> a(n);
+
+    clock_t start;
+    start = clock();
+
+    //init
+    for(int i = 0; i < n; i++) {
+        a[i] = i;
+        check[i] = false;
+    }
 
     //For the n vertices
     for (int i = 1; i < n; i++) {
-        //init bools to false
-        for (int j = 0; j < n; j++) {
-            check[j] = false;
-        }
-
         //i is subset size
-        getSubsets(graph, 0, 0, i, check, n);
+        PossibleSubSet(a, i, 0, 0, check, n, ct);
     }
 
+    //print count
+    cout << ct << " permutations." << endl;
+
+    int duration = 100*(( clock() - start ) / (double) CLOCKS_PER_SEC);
+    cout << "duration: " << duration << "ms" << endl << endl;
 }
 
 int main() {
 
     //Graph 1
     //Establish an adjacency list to represent an undirected graph
-    vector<vector<int>> graph1 = {{}, {}, {}};
+    vector<vector<int>> graph1(3);
 
     //Add vertices (visual will be shown in post)
     addEdge(graph1, 0, 1);
@@ -82,10 +100,13 @@ int main() {
     cout << "Graph 1:" << endl;
     printAdjList(graph1);
 
+    //Vertex Cover
+    vertexCover(graph1);
+
 
     //Graph 2
     //Establish an adjacency list to represent an undirected graph
-    vector<vector<int>> graph2 = {{}, {}, {}, {}, {}};
+    vector<vector<int>> graph2(5);
 
     //Add vertices (visual will be shown in post)
     addEdge(graph2, 0, 1);
@@ -98,10 +119,13 @@ int main() {
     cout << "Graph 2:" << endl;
     printAdjList(graph2);
 
+    //Vertex Cover
+    vertexCover(graph2);
+
 
     //Graph 3
     //Establish an adjacency list to represent an undirected graph
-    vector<vector<int>> graph3 = {{}, {}, {}, {}, {}};
+    vector<vector<int>> graph3(5);
 
     //Add vertices (visual will be shown in post)
     addEdge(graph3, 2, 0);
@@ -115,7 +139,31 @@ int main() {
     printAdjList(graph3);
 
     //Vertex Cover
-    vertexCover(graph3, 5);
+    vertexCover(graph3);
+
+
+
+    //Graph 4
+    //Establish an adjacency list to represent an undirected graph
+    vector<vector<int>> graph4(9);
+
+    //Add vertices (visual will be shown in post)
+    addEdge(graph4, 1, 2);
+    addEdge(graph4, 0, 2);
+    addEdge(graph4, 3, 5);
+    addEdge(graph4, 2, 3);
+    addEdge(graph4, 4, 1);
+    addEdge(graph4, 6, 3);
+    addEdge(graph4, 7, 4);
+    addEdge(graph4, 7, 8);
+    addEdge(graph4, 6, 8);
+
+    //Print the graph's adj. list to make sure it worked
+    cout << "Graph 4:" << endl;
+    printAdjList(graph4);
+
+    //Vertex Cover
+    vertexCover(graph4);
 
     return 0;
 }
