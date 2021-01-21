@@ -23,23 +23,48 @@ void printAdjList(vector<vector<int>> graph) {
     cout << endl;
 }
 
+
 void vertexCover(vector<vector<int>> graph, int edges) {
     //Get the number of vertices from the graph
-    int vertices = graph.size();
+    int n = graph.size();
 
     //vars
+    vector<vector<int>> combinationsScanned;
+    vector<int> combination;
     vector<vector<int>> edgesMarked;
     int edgesCovered = 0;
 
     //For the n vertices
-    for (int i = 0; i < vertices; i++) {
+    for (int i = 1; i < n; i++) {
 
-        for (int j = 0; j < graph[i].size(); j++) {
-            //Add each edge unless they are already in there
-            for (int i = 0; i < edgesMarked.size(); i++) {
-                //Yeah I give up.
+        //Subset size
+        int subsetSize = i;
+
+
+        //Get every possible subset for that size
+        for (int j = 0; j < i; j++) {
+            //If first case
+            if (subsetSize == 1) {
+                combination = {i};
             }
-            edgesMarked.push_back({i, graph[i][j]});
+
+            //After first
+            else {
+                int a = 0;
+                int b = 1;
+
+                //For every a
+                for (int k = 0; k < n; k++) {
+
+                    //And every b
+                    for (int l = 0; l < n; l++) {
+                        if (a != b) {
+
+                        }
+                    }
+                }
+            }
+
         }
     }
 }
