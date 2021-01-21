@@ -2,6 +2,8 @@
 #include <vector>
 using namespace std;
 
+//Turns out I did not need to make all this
+
 void addEdge(vector<vector<int>> &graph, int vertex1, int vertex2) {
     //Add vertices to the adjacency list for each vertex
     graph[vertex1].push_back(vertex2);
