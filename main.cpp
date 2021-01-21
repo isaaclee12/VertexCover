@@ -23,14 +23,16 @@ void printAdjList(vector<vector<int>> graph) {
     cout << endl;
 }
 
-void getSubsets(vector<vector<int>> graph, int s, int currentLength, int subsetSize, bool check[], int n) {
+void getSubsets(vector<vector<int>> graph, int s, int currentLength, int subsetSize, vector<bool> check, int n) {
+    //Solution taken from: https://stackoverflow.com/questions/61094030/error-c2131-expression-did-not-evaluate-to-a-constant-while-creating-array-of-s
+
     if (currentLength > subsetSize) {
         return;
     }
     else if (currentLength == subsetSize) {
         for (int i = 0; i < n; i++) {
             if (check[i]) {
-                cout<< i <<" ";
+                cout << i <<" ";
             }
         }
         cout << endl;
@@ -41,20 +43,25 @@ void getSubsets(vector<vector<int>> graph, int s, int currentLength, int subsetS
         return;
     }
 
-    /*check[s] = true;
+    check[s] = true;
     getSubsets(graph, s + 1, currentLength + 1, subsetSize, check, n);
 
     check[s] = false;
-    getSubsets(graph, s + 1, currentLength + 1, subsetSize, check, n);*/
+    getSubsets(graph, s + 1, currentLength + 1, subsetSize, check, n);
 }
 
 void vertexCover(vector<vector<int>> graph, int edges) {
     //Get the number of vertices from the graph
     int n = graph.size();
-    bool check[n];
+    vector<bool> check(n);
 
     //For the n vertices
     for (int i = 1; i < n; i++) {
+        //init bools to false
+        for (int j = 0; j < n; j++) {
+            check[j] = false;
+        }
+
         //i is subset size
         getSubsets(graph, 0, 0, i, check, n);
     }
