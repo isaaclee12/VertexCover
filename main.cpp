@@ -23,50 +23,42 @@ void printAdjList(vector<vector<int>> graph) {
     cout << endl;
 }
 
+void getSubsets(vector<vector<int>> graph, int s, int currentLength, int subsetSize, bool check[], int n) {
+    if (currentLength > subsetSize) {
+        return;
+    }
+    else if (currentLength == subsetSize) {
+        for (int i = 0; i < n; i++) {
+            if (check[i]) {
+                cout<< i <<" ";
+            }
+        }
+        cout << endl;
+        return;
+    }
+
+    if (s == 1) {
+        return;
+    }
+
+    /*check[s] = true;
+    getSubsets(graph, s + 1, currentLength + 1, subsetSize, check, n);
+
+    check[s] = false;
+    getSubsets(graph, s + 1, currentLength + 1, subsetSize, check, n);*/
+}
 
 void vertexCover(vector<vector<int>> graph, int edges) {
     //Get the number of vertices from the graph
     int n = graph.size();
-
-    //vars
-    vector<vector<int>> combinationsScanned;
-    vector<int> combination;
-    vector<vector<int>> edgesMarked;
-    int edgesCovered = 0;
+    bool check[n];
 
     //For the n vertices
     for (int i = 1; i < n; i++) {
-
-        //Subset size
-        int subsetSize = i;
-
-
-        //Get every possible subset for that size
-        for (int j = 0; j < i; j++) {
-            //If first case
-            if (subsetSize == 1) {
-                combination = {i};
-            }
-
-            //After first
-            else {
-                int a = 0;
-                int b = 1;
-
-                //For every a
-                for (int k = 0; k < n; k++) {
-
-                    //And every b
-                    for (int l = 0; l < n; l++) {
-                        if (a != b) {
-
-                        }
-                    }
-                }
-            }
-
-        }
+        //i is subset size
+        getSubsets(graph, 0, 0, i, check, n);
     }
+
 }
 
 int main() {
